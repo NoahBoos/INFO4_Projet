@@ -20,9 +20,6 @@ class Book
     #[ORM\Column(type: Types::TEXT)]
     private ?string $bookSummary = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $bookAuthor = null;
-
     #[ORM\Column]
     private ?int $bookISBN = null;
 
@@ -33,6 +30,10 @@ class Book
     #[ORM\ManyToOne(inversedBy: 'books')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Category $category = null;
+
+    #[ORM\ManyToOne(inversedBy: 'books')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Author $book_author = null;
 
     public function getId(): ?int
     {
@@ -59,18 +60,6 @@ class Book
     public function setBookSummary(string $bookSummary): static
     {
         $this->bookSummary = $bookSummary;
-
-        return $this;
-    }
-
-    public function getBookAuthor(): ?string
-    {
-        return $this->bookAuthor;
-    }
-
-    public function setBookAuthor(string $bookAuthor): static
-    {
-        $this->bookAuthor = $bookAuthor;
 
         return $this;
     }
