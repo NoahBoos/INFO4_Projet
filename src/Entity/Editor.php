@@ -30,10 +30,17 @@ class Editor
     #[ORM\OneToMany(targetEntity: Book::class, mappedBy: 'bookEditor')]
     private Collection $books;
 
+    /**
+     * @var Collection<int, Category>
+     */
+    #[ORM\OneToMany(targetEntity: Category::class, mappedBy: 'editor')]
+    private Collection $categories;
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
         $this->books = new ArrayCollection();
+        $this->categories = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -107,6 +114,36 @@ class Editor
             // set the owning side to null (unless already changed)
             if ($book->getBookEditor() === $this) {
                 $book->setBookEditor(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Category>
+     */
+    public function getCategories(): Collection
+    {
+        return $this->categories;
+    }
+
+    public function addCategory(Category $category): static
+    {
+        if (!$this->categories->contains($category)) {
+            $this->categories->add($category);
+            $category->setEditor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCategory(Category $category): static
+    {
+        if ($this->categories->removeElement($category)) {
+            // set the owning side to null (unless already changed)
+            if ($category->getEditor() === $this) {
+                $category->setEditor(null);
             }
         }
 

@@ -6,7 +6,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class StaticPages extends AbstractController {
-    #[Route('/', name: 'homepage')]
+    #[Route('/', name: 'index')]
     public function index(): Response {
         return $this->render('base.html.twig', [
             'title' => 'Page d\'accueil',
