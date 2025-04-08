@@ -1,5 +1,5 @@
 <article>
-    <img src="{{ img }}" alt="{{ title }}">
+    <img src="{{ asset(img) }}" alt="{{ title }}">
     <div>
         <a href="{{ path('app_book_show', {id: bookId }) }}">{{ title }}</a>
         <a href="{{ path('app_author_show', {id: authorId }) }}">{{ author }}</a>
