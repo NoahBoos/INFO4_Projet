@@ -7,6 +7,17 @@
 <a href="{{ path('work_in_progress') }}">
     Tutoriels
 </a>
+
+{% if is_granted('ROLE_ADMIN') %}
+    <a href="{{ path('admin_dashboard') }}">
+        Tableau de bord
+    </a>
+{% elseif is_granted('ROLE_PROFESSIONAL') %}
+    <a href="{{ path('professional_dashboard') }}">
+        Tableau de bord
+    </a>
+{% endif %}
+
 {% if app.user is null %}
     <a href="{{ path('app_login') }}">
         Connexion
@@ -14,15 +25,5 @@
 {% elseif app.user is not null %}
     <a href="{{ path('app_logout') }}">
         Déconnexion
-    </a>
-{% endif %}
-
-{% if is_granted('ROLE_ADMINISTRATOR') %}
-    <a href="{{ path('admin_dashboard') }}">
-        Tableau de bord
-    </a>
-{% elseif is_granted('ROLE_PROFESSIONAL') %}
-    <a href="{{ path('professional_dashboard') }}">
-        Tableau de bord
     </a>
 {% endif %}
