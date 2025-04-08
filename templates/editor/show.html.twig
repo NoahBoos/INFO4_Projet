@@ -23,4 +23,18 @@
     <a href="{{ path('app_editor_edit', {'id': editor.id}) }}">edit</a>
 
     {{ include('editor/_delete_form.html.twig') }}
+
+    <section>
+        {% for book in books %}
+            {% include('/components/_cardBook.html.twig') with {
+                'img': book.bookCover,
+                'title': book.bookTitle,
+                'author': book.bookAuthor.authorName,
+                'editor': book.bookEditor.editorName,
+                'bookId': book.id,
+                'authorId': book.bookAuthor.id,
+                'editorId': book.bookEditor.id,
+            } %}
+        {% endfor %}
+    </section>
 {% endblock %}

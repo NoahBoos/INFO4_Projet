@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Editor;
 use App\Form\EditorType;
+use App\Repository\BookRepository;
 use App\Repository\EditorRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -49,13 +50,22 @@ final class EditorController extends AbstractController
         ]);
     }
 
-    #[Route('/professional/editor/{id}', name: 'app_editor_show', methods: ['GET'])]
-    public function show(Editor $editor): Response
+    #[Route('/editor/{id}', name: 'app_editor_show', methods: ['GET'])]
+    public function show(Editor $editor, BookRepository $bookRepository): Response
     {
         return $this->render('editor/show.html.twig', [
             'editor' => $editor,
+            'books' => $bookRepository->findBy(['bookEditor' => $editor->getId()]),
         ]);
     }
+
+//    #[Route('/professional/editor/{id}', name: 'app_editor_show', methods: ['GET'])]
+//    public function show(Editor $editor): Response
+//    {
+//        return $this->render('editor/show.html.twig', [
+//            'editor' => $editor,
+//        ]);
+//    }
 
     #[Route('/professional/editor/{id}/edit', name: 'app_editor_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Editor $editor, EntityManagerInterface $entityManager): Response
