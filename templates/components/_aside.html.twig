@@ -1,0 +1,8 @@
+<nav>
+    <ul>
+        {% if is_granted('ROLE_ADMIN') %}
+        {% elseif is_granted('ROLE_PROFESSIONAL') %}
+        {% elseif is_granted('ROLE_USER') %}
+        {% endif %}
+    </ul>
+</nav>
