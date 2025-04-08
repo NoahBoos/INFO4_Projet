@@ -13,6 +13,13 @@ class StaticPages extends AbstractController {
         ]);
     }
 
+    #[Route('/workInProgress', name: 'work_in_progress', methods: ['GET'])]
+    public function workInProgress(): Response {
+        return $this->render('work_in_progress.html.twig', [
+           'title' => 'Page en construction...'
+        ]);
+    }
+
     #[Route('/admin/dashboard', name: 'admin_dashboard')]
     public function dashboard(): Response {
         return $this->render('admin/admin_dashboard.html.twig', [
