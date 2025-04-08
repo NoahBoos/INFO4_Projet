@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Author;
 use App\Form\AuthorType;
 use App\Repository\AuthorRepository;
+use App\Repository\BookRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -48,13 +49,23 @@ final class AuthorController extends AbstractController
         ]);
     }
 
-    #[Route('/professional/author/{id}', name: 'app_author_show', methods: ['GET'])]
-    public function show(Author $author): Response
+    #[Route('/author/{id}', name: 'app_author_show', methods: ['GET'])]
+    public function showForUser(Author $author, BookRepository $bookRepository): Response
     {
         return $this->render('author/show.html.twig', [
             'author' => $author,
+            'books' => $bookRepository->findBy(['bookAuthor' => $author->getId()]),
         ]);
     }
+
+//    #[Route('/professional/author/{id}', name: 'app_author_show', methods: ['GET'])]
+//    public function show(Author $author, BookRepository $bookRepository): Response
+//    {
+//        return $this->render('author/show.html.twig', [
+//            'author' => $author,
+//            'books' => $bookRepository->findBy(['bookAuthor' => $author->getId()]),
+//        ]);
+//    }
 
     #[Route('/professional/author/{id}/edit', name: 'app_author_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Author $author, EntityManagerInterface $entityManager): Response
