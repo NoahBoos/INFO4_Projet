@@ -4,7 +4,14 @@
 
 {% block main %}
     <h1>Editor index</h1>
-
+    {% if not is_granted('ROLE_ADMIN') and not is_granted('ROLE_PROFESSIONEL') %}
+        {% for editor in editors %}
+            {% include('components/_cardEditor.html.twig') with {
+                'editor': editor.editorName,
+                'editorId': editor.id
+            } %}
+        {% endfor %}
+    {% else %}
     <table class="table">
         <thead>
             <tr>
@@ -32,4 +39,5 @@
     </table>
 
     <a href="{{ path('app_editor_new') }}">Create new</a>
+    {% endif %}
 {% endblock %}
