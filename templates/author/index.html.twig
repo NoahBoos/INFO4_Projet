@@ -5,7 +5,7 @@
 {% block main %}
     <h1>Author index</h1>
 
-    {% if not is_granted('ROLE_ADMIN') and not is_granted('ROLE_PROFESSIONEL') %}
+    {% if not is_granted('ROLE_ADMIN') and not is_granted('ROLE_PROFESSIONAL') %}
         {% for author in authors %}
             {% include('components/_cardAuthor.html.twig') with {
                 'authorFirstname': author.authorFirstname,

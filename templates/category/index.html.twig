@@ -5,7 +5,7 @@
 {% block main %}
     <h1>Category index</h1>
 
-    {% if not is_granted('ROLE_ADMIN') and not is_granted('ROLE_PROFESSIONEL') %}
+    {% if not is_granted('ROLE_ADMIN') and not is_granted('ROLE_PROFESSIONAL') %}
     <section>
         {% for category in categories %}
             {% include('/components/_cardCategory.html.twig') with {
