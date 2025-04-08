@@ -5,43 +5,47 @@
 {% block main %}
     <h1>Author index</h1>
 
-    {% if not is_granted('ROLE_ADMIN') and not is_granted('ROLE_PROFESSIONAL') %}
-        {% for author in authors %}
-            {% include('components/_cardAuthor.html.twig') with {
-                'authorFirstname': author.authorFirstname,
-                'authorName': author.authorName,
-                'authorId': author.id
-            } %}
-        {% endfor %}
-    {% else %}
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Author_name</th>
-                <th>Author_firstname</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for author in authors %}
-            <tr>
-                <td>{{ author.id }}</td>
-                <td>{{ author.authorName }}</td>
-                <td>{{ author.authorFirstname }}</td>
-                <td>
-                    <a href="{{ path('app_author_show', {'id': author.id}) }}">show</a>
-                    <a href="{{ path('app_author_edit', {'id': author.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="4">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    {% if app.request.getPathInfo starts with '/professional' %}
+        <section>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Author_name</th>
+                    <th>Author_firstname</th>
+                    <th>actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for author in authors %}
+                    <tr>
+                        <td>{{ author.id }}</td>
+                        <td>{{ author.authorName }}</td>
+                        <td>{{ author.authorFirstname }}</td>
+                        <td>
+                            <a href="{{ path('app_author_show', {'id': author.id}) }}">show</a>
+                            <a href="{{ path('app_author_edit', {'id': author.id}) }}">edit</a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="4">no records found</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
 
-    <a href="{{ path('app_author_new') }}">Create new</a>
+            <a href="{{ path('app_author_new') }}">Create new</a>
+        </section>
+    {% else %}
+        <section>
+            {% for author in authors %}
+                {% include('components/_cardAuthor.html.twig') with {
+                    'authorFirstname': author.authorFirstname,
+                    'authorName': author.authorName,
+                    'authorId': author.id
+                } %}
+            {% endfor %}
+        </section>
     {% endif %}
 {% endblock %}

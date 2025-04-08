@@ -5,7 +5,41 @@
 {% block main %}
     <h1>Book index</h1>
 
-    {% if app.user is null or (not is_granted('ROLE_ADMIN') and not is_granted('ROLE_PROFESSIONAL')) %}
+    {% if app.request.getPathInfo starts with '/professional' %}
+        <section>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>BookTitle</th>
+                    <th>BookSummary</th>
+                    <th>BookISBN</th>
+                    <th>actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for book in books %}
+                    <tr>
+                        <td>{{ book.id }}</td>
+                        <td>{{ book.bookTitle }}</td>
+                        <td>{{ book.bookSummary }}</td>
+                        <td>{{ book.bookISBN }}</td>
+                        <td>
+                            <a href="{{ path('app_book_show', {'id': book.id}) }}">show</a>
+                            <a href="{{ path('app_book_edit', {'id': book.id}) }}">edit</a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="5">no records found</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+            <a href="{{ path('app_book_new') }}">Create new</a>
+        </section>
+    {% else %}
         <section>
             {% for book in books %}
                 {% include('/components/_cardBook.html.twig') with {
@@ -19,37 +53,5 @@
                 } %}
             {% endfor %}
         </section>
-    {% elseif is_granted('ROLE_ADMIN') or is_granted('ROLE_PROFESSIONAL') %}
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>BookTitle</th>
-                    <th>BookSummary</th>
-                    <th>BookISBN</th>
-                    <th>actions</th>
-                </tr>
-            </thead>
-            <tbody>
-            {% for book in books %}
-                <tr>
-                    <td>{{ book.id }}</td>
-                    <td>{{ book.bookTitle }}</td>
-                    <td>{{ book.bookSummary }}</td>
-                    <td>{{ book.bookISBN }}</td>
-                    <td>
-                        <a href="{{ path('app_book_show', {'id': book.id}) }}">show</a>
-                        <a href="{{ path('app_book_edit', {'id': book.id}) }}">edit</a>
-                    </td>
-                </tr>
-            {% else %}
-                <tr>
-                    <td colspan="5">no records found</td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-
-        <a href="{{ path('app_book_new') }}">Create new</a>
     {% endif %}
 {% endblock %}
