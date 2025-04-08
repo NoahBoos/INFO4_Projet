@@ -1,8 +1,19 @@
 <nav>
     <ul>
         {% if is_granted('ROLE_ADMIN') %}
+            {% if app.request.getPathInfo starts with '/admin' or app.request.getPathInfo starts with '/professional' %}
+                {% include('/components/nav/_virtualFolder_admin.html.twig') %}
+            {% else %}
+                {% include('/components/nav/_virtualFolder_user.html.twig') %}
+            {% endif %}
         {% elseif is_granted('ROLE_PROFESSIONAL') %}
+            {% if app.request.getPathInfo starts with '/professional' %}
+                {% include('/components/nav/_virtualFolder_professional.html.twig') %}
+            {% else %}
+                {% include('/components/nav/_virtualFolder_user.html.twig') %}
+            {% endif %}
         {% elseif is_granted('ROLE_USER') %}
+            {% include('/components/nav/_virtualFolder_user.html.twig') %}
         {% endif %}
     </ul>
 </nav>
