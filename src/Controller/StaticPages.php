@@ -12,4 +12,11 @@ class StaticPages extends AbstractController {
             'title' => 'Page d\'accueil',
         ]);
     }
+
+    #[Route('/admin/dashboard', name: 'admin_dashboard')]
+    public function dashboard(): Response {
+        return $this->render('admin/admin_dashboard.html.twig', [
+            'title' => 'Panneau d\'administration',
+        ]);
+    }
 }
