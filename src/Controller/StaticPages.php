@@ -21,9 +21,16 @@ class StaticPages extends AbstractController {
     }
 
     #[Route('/admin/dashboard', name: 'admin_dashboard')]
-    public function dashboard(): Response {
+    public function adminDashboard(): Response {
         return $this->render('admin/admin_dashboard.html.twig', [
-            'title' => 'Panneau d\'administration',
+            'title' => 'Panneau d\'administration'
+        ]);
+    }
+
+    #[Route('/professional/dashboard', name: 'professional_dashboard')]
+    public function professionalDashboard(): Response {
+        return $this->render('professional/professional_dashboard.html.twig', [
+            'title' => 'Panneau professionnel'
         ]);
     }
 }
