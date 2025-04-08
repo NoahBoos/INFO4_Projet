@@ -17,7 +17,7 @@ class CategoryType extends AbstractType
             ->add('category_name')
             ->add('editor', EntityType::class, [
                 'class' => Editor::class,
-                'choice_label' => 'id',
+                'choice_label' => 'editor_name',
             ])
         ;
     }
