@@ -5,6 +5,15 @@
 {% block main %}
     <h1>Author index</h1>
 
+    {% if not is_granted('ROLE_ADMIN') and not is_granted('ROLE_PROFESSIONEL') %}
+        {% for author in authors %}
+            {% include('components/_cardAuthor.html.twig') with {
+                'authorFirstname': author.authorFirstname,
+                'authorName': author.authorName,
+                'authorId': author.id
+            } %}
+        {% endfor %}
+    {% else %}
     <table class="table">
         <thead>
             <tr>
@@ -34,4 +43,5 @@
     </table>
 
     <a href="{{ path('app_author_new') }}">Create new</a>
+    {% endif %}
 {% endblock %}
