@@ -11,10 +11,17 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/editor')]
 final class EditorController extends AbstractController
 {
-    #[Route(name: 'app_editor_index', methods: ['GET'])]
+    #[Route('/editor', name: 'app_editor_index_user', methods: ['GET'])]
+    public function indexForUser(EditorRepository $editorRepository): Response
+    {
+        return $this->render('editor/index.html.twig', [
+            'editors' => $editorRepository->findAll(),
+        ]);
+    }
+
+    #[Route('/professional/editor', name: 'app_editor_index', methods: ['GET'])]
     public function index(EditorRepository $editorRepository): Response
     {
         return $this->render('editor/index.html.twig', [
@@ -22,7 +29,7 @@ final class EditorController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_editor_new', methods: ['GET', 'POST'])]
+    #[Route('/professional/editor/new', name: 'app_editor_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $editor = new Editor();
@@ -42,7 +49,7 @@ final class EditorController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_editor_show', methods: ['GET'])]
+    #[Route('/professional/editor/{id}', name: 'app_editor_show', methods: ['GET'])]
     public function show(Editor $editor): Response
     {
         return $this->render('editor/show.html.twig', [
@@ -50,7 +57,7 @@ final class EditorController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_editor_edit', methods: ['GET', 'POST'])]
+    #[Route('/professional/editor/{id}/edit', name: 'app_editor_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Editor $editor, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(EditorType::class, $editor);
@@ -68,7 +75,7 @@ final class EditorController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_editor_delete', methods: ['POST'])]
+    #[Route('/professional/editor/{id}', name: 'app_editor_delete', methods: ['POST'])]
     public function delete(Request $request, Editor $editor, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$editor->getId(), $request->getPayload()->getString('_token'))) {
