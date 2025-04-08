@@ -25,6 +25,15 @@
     {{ include('editor/_delete_form.html.twig') }}
 
     <section>
+        {% for category in categories %}
+            {% include('/components/_cardCategory.html.twig') with {
+                'categoryId': category.id,
+                'category': category.categoryName
+            } %}
+        {% endfor %}
+    </section>
+
+    <section>
         {% for book in books %}
             {% include('/components/_cardBook.html.twig') with {
                 'img': book.bookCover,

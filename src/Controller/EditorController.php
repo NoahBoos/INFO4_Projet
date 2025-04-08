@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Editor;
 use App\Form\EditorType;
 use App\Repository\BookRepository;
+use App\Repository\CategoryRepository;
 use App\Repository\EditorRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -51,10 +52,11 @@ final class EditorController extends AbstractController
     }
 
     #[Route('/editor/{id}', name: 'app_editor_show', methods: ['GET'])]
-    public function show(Editor $editor, BookRepository $bookRepository): Response
+    public function show(Editor $editor, CategoryRepository $categoryRepository, BookRepository $bookRepository): Response
     {
         return $this->render('editor/show.html.twig', [
             'editor' => $editor,
+            'categories' => $categoryRepository->findBy(['editor' => $editor->getId()]),
             'books' => $bookRepository->findBy(['bookEditor' => $editor->getId()]),
         ]);
     }
