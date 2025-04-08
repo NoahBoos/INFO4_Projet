@@ -29,11 +29,14 @@ class Book
 
     #[ORM\ManyToOne(inversedBy: 'books')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Category $category = null;
+    private ?Category $bookCategory = null;
 
     #[ORM\ManyToOne(inversedBy: 'books')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Author $book_author = null;
+    private ?Author $bookAuthor = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $book_cover = null;
 
     public function getId(): ?int
     {
@@ -76,6 +79,18 @@ class Book
         return $this;
     }
 
+    public function getBookAuthor(): ?Author
+    {
+        return $this->bookAuthor;
+    }
+
+    public function setBookAuthor(?Author $bookAuthor): static
+    {
+        $this->bookAuthor = $bookAuthor;
+
+        return $this;
+    }
+
     public function getBookEditor(): ?Editor
     {
         return $this->bookEditor;
@@ -88,14 +103,26 @@ class Book
         return $this;
     }
 
-    public function getCategory(): ?Category
+    public function getBookCategory(): ?Category
     {
-        return $this->category;
+        return $this->bookCategory;
     }
 
-    public function setCategory(?Category $category): static
+    public function setBookCategory(?Category $bookCategory): static
     {
-        $this->category = $category;
+        $this->bookCategory = $bookCategory;
+
+        return $this;
+    }
+
+    public function getBookCover(): ?string
+    {
+        return $this->book_cover;
+    }
+
+    public function setBookCover(?string $book_cover): static
+    {
+        $this->book_cover = $book_cover;
 
         return $this;
     }
