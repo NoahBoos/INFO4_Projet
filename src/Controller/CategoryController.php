@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Category;
 use App\Form\CategoryType;
+use App\Repository\BookRepository;
 use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -49,13 +50,22 @@ final class CategoryController extends AbstractController
         ]);
     }
 
-    #[Route('/professional/category/{id}', name: 'app_category_show', methods: ['GET'])]
-    public function show(Category $category): Response
+    #[Route('/category/{id}', name: 'app_category_show', methods: ['GET'])]
+    public function showForUser(Category $category, BookRepository $bookRepository): Response
     {
         return $this->render('category/show.html.twig', [
             'category' => $category,
+            'books' => $bookRepository->findBy(['category' => $category->getId()]),
         ]);
     }
+
+//    #[Route('/professional/category/{id}', name: 'app_category_show', methods: ['GET'])]
+//    public function show(Category $category): Response
+//    {
+//        return $this->render('category/show.html.twig', [
+//            'category' => $category,
+//        ]);
+//    }
 
     #[Route('/professional/category/{id}/edit', name: 'app_category_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Category $category, EntityManagerInterface $entityManager): Response
