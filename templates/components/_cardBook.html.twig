@@ -1,8 +1,8 @@
 <article>
     <img src="{{ img }}" alt="{{ title }}">
     <div>
-        <p>{{ title }}</p>
-        <p>{{ author }}</p>
-        <p>{{ editor }}</p>
+        <a href="{{ path('app_book_show', {id: bookId }) }}">{{ title }}</a>
+        <a href="{{ path('app_author_show', {id: authorId }) }}">{{ author }}</a>
+        <a href="{{ path('app_editor_show', {id: editorId}) }}">{{ editor }}</a>
     </div>
 </article>
