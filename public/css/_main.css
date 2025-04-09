@@ -1,3 +1,28 @@
 main {
     width: 80%;
+    padding: 16px;
+}
+
+.main__title--text {
+    text-align: center;
+}
+
+.main__link {
+    color: black;
+    font-size: 18px;
+}
+
+.main__book--container {
+    justify-content: space-between;
+    padding: 0 64px 0 0;
+}
+
+.main__book-detail--container {
+    min-width: 40%;
+    max-width: 40%;
+}
+
+.main__book--cover {
+    width: 30%;
+    margin-right: 96px;
 }

@@ -3,32 +3,13 @@
 {% block title %}Book{% endblock %}
 
 {% block main %}
-    <h1>Book</h1>
-
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ book.id }}</td>
-            </tr>
-            <tr>
-                <th>BookTitle</th>
-                <td>{{ book.bookTitle }}</td>
-            </tr>
-            <tr>
-                <th>BookSummary</th>
-                <td>{{ book.bookSummary }}</td>
-            </tr>
-            <tr>
-                <th>BookISBN</th>
-                <td>{{ book.bookISBN }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_book_index') }}">back to list</a>
-
-    <a href="{{ path('app_book_edit', {'id': book.id}) }}">edit</a>
-
-    {{ include('book/_delete_form.html.twig') }}
+    <div class="container--flex-row main__book--container">
+        <div class="container--flex-column main__book-detail--container">
+            <h1>{{ book.bookTitle }}</h1>
+            <h2>Code ISBN - {{ book.bookISBN }}</h2>
+            <p>{{ book.bookSummary }}</p>
+            <a href="{{ path('app_book_index_user') }}">Retourner à la liste des livres</a>
+        </div>
+        <img class="main__book--cover" src="{{ asset(book.bookCover) }}">
+    </div>
 {% endblock %}

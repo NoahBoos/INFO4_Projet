@@ -3,32 +3,11 @@
 {% block title %}Author{% endblock %}
 
 {% block main %}
-    <h1>Author</h1>
+    <h1 class="main__title--text">{{ author.authorFirstname }} {{ author.authorName }}</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ author.id }}</td>
-            </tr>
-            <tr>
-                <th>Author_name</th>
-                <td>{{ author.authorName }}</td>
-            </tr>
-            <tr>
-                <th>Author_firstname</th>
-                <td>{{ author.authorFirstname }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <a class="main__link" href="{{ path('app_author_index_user') }}">Retourner à la liste des auteurs</a>
 
-    <a href="{{ path('app_author_index') }}">back to list</a>
-
-    <a href="{{ path('app_author_edit', {'id': author.id}) }}">edit</a>
-
-    {{ include('author/_delete_form.html.twig') }}
-
-    <section>
+    <section class="container--flex-row card-container">
         {% for book in books %}
             {% include('/components/_cardBook.html.twig') with {
                 'img': book.bookCover,

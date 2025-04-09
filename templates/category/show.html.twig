@@ -3,28 +3,15 @@
 {% block title %}Category{% endblock %}
 
 {% block main %}
-    <h1>Category</h1>
+    <h1 class="main__title--text">{{ category.categoryName }}</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ category.id }}</td>
-            </tr>
-            <tr>
-                <th>Category_name</th>
-                <td>{{ category.categoryName }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <a class="main__link" href="{{ path('app_category_index_user') }}">Retourner à la liste des catégories</a>
 
-    <a href="{{ path('app_category_index') }}">back to list</a>
+{#    <a href="{{ path('app_category_edit', {'id': category.id}) }}">edit</a>#}
 
-    <a href="{{ path('app_category_edit', {'id': category.id}) }}">edit</a>
+{#    {{ include('category/_delete_form.html.twig') }}#}
 
-    {{ include('category/_delete_form.html.twig') }}
-
-    <section>
+    <section class="container--flex-row card-container">
         {% for book in books %}
             {% include('/components/_cardBook.html.twig') with {
                 'img': book.bookCover,

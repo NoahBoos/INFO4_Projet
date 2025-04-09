@@ -3,28 +3,12 @@
 {% block title %}Editor{% endblock %}
 
 {% block main %}
-    <h1>Editor</h1>
+    <h1 class="main__title--text">{{ editor.editorName }}</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ editor.id }}</td>
-            </tr>
-            <tr>
-                <th>EditorName</th>
-                <td>{{ editor.editorName }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <a href="{{ path('app_editor_index_user') }}">Retourner à la liste des éditeurs</a>
 
-    <a href="{{ path('app_editor_index') }}">back to list</a>
-
-    <a href="{{ path('app_editor_edit', {'id': editor.id}) }}">edit</a>
-
-    {{ include('editor/_delete_form.html.twig') }}
-
-    <section>
+    <h2>Collections de {{ editor.editorName }}</h2>
+    <section class="container--flex-row card-container">
         {% for category in categories %}
             {% include('/components/_cardCategory.html.twig') with {
                 'categoryId': category.id,
@@ -32,8 +16,8 @@
             } %}
         {% endfor %}
     </section>
-
-    <section>
+    <h2>Œuvres parues sous {{ editor.editorName }}</h2>
+    <section class="container--flex-row card-container">
         {% for book in books %}
             {% include('/components/_cardBook.html.twig') with {
                 'img': book.bookCover,
