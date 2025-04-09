@@ -1,29 +1,35 @@
-<a href="{{ path('index') }}">
-    Livres
-</a>
-<a href="{{ path('work_in_progress') }}">
-    Cours
-</a>
-<a href="{{ path('work_in_progress') }}">
-    Tutoriels
-</a>
+<h1>
+    Librairift
+</h1>
 
-{% if is_granted('ROLE_ADMIN') %}
-    <a href="{{ path('admin_dashboard') }}">
-        Tableau de bord
+<nav class="container--flex-row">
+    <a href="{{ path('index') }}">
+        Livres
     </a>
-{% elseif is_granted('ROLE_PROFESSIONAL') %}
-    <a href="{{ path('professional_dashboard') }}">
-        Tableau de bord
+    <a href="{{ path('work_in_progress') }}">
+        Cours
     </a>
-{% endif %}
+    <a href="{{ path('work_in_progress') }}">
+        Tutoriels
+    </a>
 
-{% if app.user is null %}
-    <a href="{{ path('app_login') }}">
-        Connexion
-    </a>
-{% elseif app.user is not null %}
-    <a href="{{ path('app_logout') }}">
-        Déconnexion
-    </a>
-{% endif %}
+    {% if is_granted('ROLE_ADMIN') %}
+        <a href="{{ path('admin_dashboard') }}">
+            <i class="bi bi-journals"></i>
+        </a>
+    {% elseif is_granted('ROLE_PROFESSIONAL') %}
+        <a href="{{ path('professional_dashboard') }}">
+            <i class="bi bi-journals"></i>
+        </a>
+    {% endif %}
+
+    {% if app.user is null %}
+        <a href="{{ path('app_login') }}">
+            Connexion
+        </a>
+    {% elseif app.user is not null %}
+        <a href="{{ path('app_logout') }}">
+            Déconnexion
+        </a>
+    {% endif %}
+</nav>
