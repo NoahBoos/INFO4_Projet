@@ -25,8 +25,10 @@ final class CategoryController extends AbstractController
     #[Route('/professional/category', name: 'app_category_index', methods: ['GET'])]
     public function index(CategoryRepository $categoryRepository): Response
     {
+        $user = $this->getUser();
         return $this->render('category/index.html.twig', [
             'categories' => $categoryRepository->findAll(),
+            'categoriesByCurrentEditor' => $categoryRepository->findBy(['editor' => $user->getEditor()]),
         ]);
     }
 
