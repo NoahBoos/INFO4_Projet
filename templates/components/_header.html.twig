@@ -15,11 +15,11 @@
 
     {% if is_granted('ROLE_ADMIN') %}
         <a href="{{ path('admin_dashboard') }}">
-            <i class="bi bi-journals"></i>
+            Tableau de bord
         </a>
     {% elseif is_granted('ROLE_PROFESSIONAL') %}
         <a href="{{ path('professional_dashboard') }}">
-            <i class="bi bi-journals"></i>
+            Tableau de bord
         </a>
     {% endif %}
 
