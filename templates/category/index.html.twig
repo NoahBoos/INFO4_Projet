@@ -10,28 +10,42 @@
             <table class="table">
                 <thead>
                 <tr>
-                    <th>Id</th>
                     <th>Nom de la catégorie</th>
                     <th>Actions</th>
                 </tr>
                 </thead>
                 <tbody>
-                {% for category in categories %}
-                    <tr>
-                        <td>{{ category.id }}</td>
-                        <td>{{ category.categoryName }}</td>
-                        <td>
-                            <a href="{{ path('app_category_show', {'id': category.id}) }}"><i class="bi bi-pencil-square"></i></a>
-                            <a href="{{ path('app_category_delete', {'id': category.id}) }}"><i class="bi bi-trash"></i></a>
-                        </td>
-                    </tr>
-                {% else %}
-                    <tr>
-                        <td colspan="3">no records found</td>
-                    </tr>
-                {% endfor %}
+                    {% if is_granted('ROLE_ADMIN') %}
+                        {% for category in categories %}
+                            <tr>
+                                <td>{{ category.categoryName }}</td>
+                                <td>
+                                    <a href="{{ path('app_category_show', {'id': category.id}) }}"><i class="bi bi-pencil-square"></i></a>
+                                    <a href="{{ path('app_category_delete', {'id': category.id}) }}"><i class="bi bi-trash"></i></a>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="3">no records found</td>
+                            </tr>
+                        {% endfor %}
+                    {% elseif is_granted('ROLE_PROFESSIONAL') %}
+                        {% for category in categoriesByCurrentEditor %}
+                            <tr>
+                                <td>{{ category.categoryName }}</td>
+                                <td>
+                                    <a href="{{ path('app_category_show', {'id': category.id}) }}"><i class="bi bi-pencil-square"></i></a>
+                                    <a href="{{ path('app_category_delete', {'id': category.id}) }}"><i class="bi bi-trash"></i></a>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="3">no records found</td>
+                            </tr>
+                        {% endfor %}
+                    {% endif %}
                 </tbody>
-                </table>
+            </table>
 
             <a href="{{ path('app_category_new') }}">Create new</a>
         </section>

@@ -10,18 +10,14 @@
             <table class="table">
                 <thead>
                 <tr>
-                    <th>Id</th>
-                    <th>Nom de l'auteur</th>
-                    <th>Prénom de l'auteur</th>
+                    <th>Identité de l'auteur</th>
                     <th>Actions</th>
                 </tr>
                 </thead>
                 <tbody>
                 {% for author in authors %}
                     <tr>
-                        <td>{{ author.id }}</td>
-                        <td>{{ author.authorName }}</td>
-                        <td>{{ author.authorFirstname }}</td>
+                        <td>{{ author.authorFirstname }} {{ author.authorName }}</td>
                         <td>
                             <a href="{{ path('app_author_show', {'id': author.id}) }}"><i class="bi bi-pencil-square"></i></a>
                             <a href="{{ path('app_author_delete', {'id': author.id}) }}"><i class="bi bi-trash"></i></a>

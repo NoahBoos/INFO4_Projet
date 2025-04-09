@@ -9,7 +9,6 @@
             <table class="table">
                 <thead>
                 <tr>
-                    <th>Id</th>
                     <th>Nom de l'éditeur</th>
                     <th>Actions</th>
                 </tr>
@@ -17,7 +16,6 @@
                 <tbody>
                 {% for editor in editors %}
                     <tr>
-                        <td>{{ editor.id }}</td>
                         <td>{{ editor.editorName }}</td>
                         <td>
                             <a href="{{ path('app_editor_show', {'id': editor.id}) }}"><i class="bi bi-pencil-square"></i></a>
