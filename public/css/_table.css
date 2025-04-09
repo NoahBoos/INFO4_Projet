@@ -1,0 +1,38 @@
+.table-wrapper {
+    background-color: #f5f5f5;
+    padding: 1rem;
+    border-radius: 0.25rem;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+}
+
+thead {
+    background-color: #f5f5f5;
+}
+
+th {
+    text-align: left;
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+    color: #005CAA;
+}
+
+td {
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+    border-top: 1px solid #ddd;
+    vertical-align: middle;
+}
+
+tr a i {
+    font-size: 20px;
+    color: black;
+
+    &.bi-trash {
+        color: red;
+    }
+}
