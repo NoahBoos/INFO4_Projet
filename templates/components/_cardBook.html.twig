@@ -1,8 +1,8 @@
-<article>
+<article class="card card--bottom-rounded container--flex-column">
     <img src="{{ asset(img) }}" alt="{{ title }}">
-    <div>
-        <a href="{{ path('app_book_show', {id: bookId }) }}">{{ title }}</a>
-        <a href="{{ path('app_author_show', {id: authorId }) }}">{{ author }}</a>
-        <a href="{{ path('app_editor_show', {id: editorId}) }}">{{ editor }}</a>
+    <div class="container--flex-column card--description">
+        <a class="card--title"  href="{{ path('app_book_show', {id: bookId }) }}">{{ title }}</a>
+        <a class="card--subtitle" href="{{ path('app_author_show', {id: authorId }) }}">{{ author }}</a>
+        <a class="card--subtitle" href="{{ path('app_editor_show', {id: editorId}) }}">{{ editor }}</a>
     </div>
 </article>

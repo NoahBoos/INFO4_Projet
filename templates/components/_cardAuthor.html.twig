@@ -1,3 +1,5 @@
-<article>
-    <a href="{{ path('app_author_show', {id: authorId}) }}">{{ authorFirstname }} {{ authorName }}</a>
+<article class="card card--rounded container--flex-column">
+    <div class="container--flex-column card--description">
+        <a class="card--title" href="{{ path('app_author_show', {id: authorId}) }}">{{ authorFirstname }} {{ authorName }}</a>
+    </div>
 </article>
