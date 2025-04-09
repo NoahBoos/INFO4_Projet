@@ -38,7 +38,7 @@
             <a href="{{ path('app_author_new') }}">Create new</a>
         </section>
     {% else %}
-        <section>
+        <section class="container--flex-row card-container">
             {% for author in authors %}
                 {% include('components/_cardAuthor.html.twig') with {
                     'authorFirstname': author.authorFirstname,

@@ -40,7 +40,7 @@
             <a href="{{ path('app_book_new') }}">Create new</a>
         </section>
     {% else %}
-        <section>
+        <section class="container--flex-row card-container">
             {% for book in books %}
                 {% include('/components/_cardBook.html.twig') with {
                     'img': book.bookCover,

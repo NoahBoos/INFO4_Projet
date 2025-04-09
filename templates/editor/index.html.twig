@@ -35,7 +35,7 @@
             <a href="{{ path('app_editor_new') }}">Create new</a>
         </section>
     {% else %}
-        <section>
+        <section class="container--flex-row card-container">
             {% for editor in editors %}
                 {% include('components/_cardEditor.html.twig') with {
                     'editor': editor.editorName,
