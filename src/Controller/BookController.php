@@ -49,7 +49,7 @@ final class BookController extends AbstractController
         ]);
     }
 
-    #[Route('/professional/book/{id}', name: 'app_book_show', methods: ['GET'])]
+    #[Route('/book/{id}', name: 'app_book_show', methods: ['GET'])]
     public function show(Book $book): Response
     {
         return $this->render('book/show.html.twig', [
