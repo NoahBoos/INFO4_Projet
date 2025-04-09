@@ -19,12 +19,6 @@ class Editor
     private ?string $editorName = null;
 
     /**
-     * @var Collection<int, User>
-     */
-    #[ORM\OneToMany(targetEntity: User::class, mappedBy: 'editor')]
-    private Collection $users;
-
-    /**
      * @var Collection<int, Book>
      */
     #[ORM\OneToMany(targetEntity: Book::class, mappedBy: 'bookEditor')]
@@ -36,11 +30,17 @@ class Editor
     #[ORM\OneToMany(targetEntity: Category::class, mappedBy: 'editor')]
     private Collection $categories;
 
+    /**
+     * @var Collection<int, User>
+     */
+    #[ORM\OneToMany(targetEntity: User::class, mappedBy: 'editor')]
+    private Collection $users;
+
     public function __construct()
     {
-        $this->users = new ArrayCollection();
         $this->books = new ArrayCollection();
         $this->categories = new ArrayCollection();
+        $this->users = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -56,36 +56,6 @@ class Editor
     public function setEditorName(string $editorName): static
     {
         $this->editorName = $editorName;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, User>
-     */
-    public function getUsers(): Collection
-    {
-        return $this->users;
-    }
-
-    public function addUser(User $user): static
-    {
-        if (!$this->users->contains($user)) {
-            $this->users->add($user);
-            $user->setEditor($this);
-        }
-
-        return $this;
-    }
-
-    public function removeUser(User $user): static
-    {
-        if ($this->users->removeElement($user)) {
-            // set the owning side to null (unless already changed)
-            if ($user->getEditor() === $this) {
-                $user->setEditor(null);
-            }
-        }
 
         return $this;
     }
@@ -144,6 +114,36 @@ class Editor
             // set the owning side to null (unless already changed)
             if ($category->getEditor() === $this) {
                 $category->setEditor(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, User>
+     */
+    public function getUsers(): Collection
+    {
+        return $this->users;
+    }
+
+    public function addUser(User $user): static
+    {
+        if (!$this->users->contains($user)) {
+            $this->users->add($user);
+            $user->setEditor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUser(User $user): static
+    {
+        if ($this->users->removeElement($user)) {
+            // set the owning side to null (unless already changed)
+            if ($user->getEditor() === $this) {
+                $user->setEditor(null);
             }
         }
 
