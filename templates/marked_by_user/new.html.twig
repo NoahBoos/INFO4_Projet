@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New MarkedByUser{% endblock %}
+
+{% block body %}
+    <h1>Create new MarkedByUser</h1>
+
+    {{ include('marked_by_user/_form.html.twig') }}
+
+    <a href="{{ path('app_marked_by_user_index') }}">back to list</a>
+{% endblock %}
