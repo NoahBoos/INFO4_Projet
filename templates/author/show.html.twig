@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Author{% endblock %}
+{% block title %}{{ author.authorFirstname }} {{ author.authorName }}{% endblock %}
 
 {% block main %}
     <h1 class="main__title--text">{{ author.authorFirstname }} {{ author.authorName }}</h1>

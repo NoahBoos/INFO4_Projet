@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Author index{% endblock %}
+{% block title %}Tous les auteurs{% endblock %}
 
 {% block main %}
-    <h1>Author index</h1>
+    <h1>Tous les auteurs</h1>
 
     {% if app.request.getPathInfo starts with '/professional' %}
         <section>
@@ -19,7 +19,7 @@
                     <tr>
                         <td>{{ author.authorFirstname }} {{ author.authorName }}</td>
                         <td>
-                            <a href="{{ path('app_author_show', {'id': author.id}) }}"><i class="bi bi-pencil-square"></i></a>
+                            <a href="{{ path('app_author_edit', {'id': author.id}) }}"><i class="bi bi-pencil-square"></i></a>
                             <a href="{{ path('app_author_delete', {'id': author.id}) }}"><i class="bi bi-trash"></i></a>
                         </td>
                     </tr>
