@@ -3,7 +3,7 @@
 {% block title %}Modifier une catégorie{% endblock %}
 
 {% block main %}
-    <h1>Modifier {{ category.categoryName }}</h1>
+    <h1 class="main__title--text">Modifier {{ category.categoryName }}</h1>
 
     {{ include('category/_form.html.twig', {'button_label': 'Update'}) }}
 

@@ -3,7 +3,7 @@
 {% block title %}Modifier un auteur{% endblock %}
 
 {% block main %}
-    <h1>Modifier les informations sur {{ author.authorFirstname }} {{ author.authorName }}</h1>
+    <h1 class="main__title--text">Modifier les informations sur {{ author.authorFirstname }} {{ author.authorName }}</h1>
 
     {{ include('author/_form.html.twig', {'button_label': 'Update'}) }}
 

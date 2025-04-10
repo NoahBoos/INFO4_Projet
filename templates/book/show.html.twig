@@ -5,7 +5,7 @@
 {% block main %}
     <div class="container--flex-row main__book--container">
         <div class="container--flex-column main__book-detail--container">
-            <h1>{{ book.bookTitle }}</h1>
+            <h1 class="main__title--text">{{ book.bookTitle }}</h1>
             <h2>Code ISBN - {{ book.bookISBN }}</h2>
             <p>{{ book.bookSummary }}</p>
             <a class="main__link main__link-no-decoration" href="{{ path('app_marked_by_user_new', {idBook: book.id, idStatus: 1}) }}"><i class="bi bi-bookmark"></i> Marquer comme à lire</a>

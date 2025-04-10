@@ -4,10 +4,12 @@
 
 {% block main %}
     {% if is_granted('ROLE_PROFESSIONAL') and app.request.getPathInfo starts with '/professional' %}
-        <h1>Tous les livres parus sous {{ editor.editorName }}</h1>
+        <h1 class="main__title--text">Tous les livres parus sous {{ editor.editorName }}</h1>
     {% else %}
-        <h1>Tous les livres</h1>
+        <h1 class="main__title--text">Tous les livres</h1>
     {% endif %}
+
+    <a class="main__link" href="{{ path('app_book_new') }}">Ajouter un nouveau livre à la base de données</a>
 
     {% if app.request.getPathInfo starts with '/professional' %}
         <section class="table-wrapper">
@@ -56,8 +58,6 @@
                     {% endif %}
                 </tbody>
             </table>
-
-            <a class="main__link" href="{{ path('app_book_new') }}">Ajouter un nouveau livre à la base de données</a>
         </section>
     {% else %}
         <section class="container--flex-row card-container">

@@ -3,7 +3,7 @@
 {% block title %}Modifier un éditeur{% endblock %}
 
 {% block main %}
-    <h1>Modifier {{ editor.editorName }}</h1>
+    <h1 class="main__title--text">Modifier {{ editor.editorName }}</h1>
 
     {{ include('editor/_form.html.twig', {'button_label': 'Update'}) }}
 

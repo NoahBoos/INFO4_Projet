@@ -10,11 +10,11 @@
 
 {% block main %}
     {% if is_granted('ROLE_ADMIN') and app.request.getPathInfo starts with '/admin' %}
-        <h1>Tous les marquages de livres</h1>
+        <h1 class="main__title--text">Tous les marquages de livres</h1>
     {% elseif is_granted('ROLE_PROFESSIONAL') and app.request.getPathInfo starts with '/professional' %}
-        <h1>Tous les marquages des livres parus sous {{ editor.editorName }}</h1>
+        <h1 class="main__title--text">Tous les marquages des livres parus sous {{ editor.editorName }}</h1>
     {% else %}
-        <h1>Votre collection de livres</h1>
+        <h1 class="main__title--text">Votre collection de livres</h1>
     {% endif %}
 
     {% if app.request.getPathInfo starts with '/admin' %}

@@ -3,7 +3,10 @@
 {% block title %}Tous les éditeurs{% endblock %}
 
 {% block main %}
-    <h1>Tous les éditeurs</h1>
+    <h1 class="main__title--text">Tous les éditeurs</h1>
+
+    <a class="main__link" href="{{ path('app_editor_new') }}">Ajouter un nouvel éditeur à la base de données</a>
+
     {% if app.request.getPathInfo starts with '/professional' %}
         <section>
             <table class="table">
@@ -29,8 +32,6 @@
                 {% endfor %}
                 </tbody>
             </table>
-
-            <a class="main__link" href="{{ path('app_editor_new') }}">Ajouter un nouvel éditeur à la base de données</a>
         </section>
     {% else %}
         <section class="container--flex-row card-container">

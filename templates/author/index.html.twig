@@ -3,7 +3,9 @@
 {% block title %}Tous les auteurs{% endblock %}
 
 {% block main %}
-    <h1>Tous les auteurs</h1>
+    <h1 class="main__title--text">Tous les auteurs</h1>
+
+    <a class="main__link" href="{{ path('app_author_new') }}">Ajouter un nouvel auteur à la base de données</a>
 
     {% if app.request.getPathInfo starts with '/professional' %}
         <section>
@@ -30,8 +32,6 @@
                 {% endfor %}
                 </tbody>
             </table>
-
-            <a href="{{ path('app_author_new') }}">Ajouter un nouvel auteur à la base de données</a>
         </section>
     {% else %}
         <section class="container--flex-row card-container">

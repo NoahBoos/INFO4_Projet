@@ -4,9 +4,9 @@
 
 {% block main %}
     {% if is_granted('ROLE_PROFESSIONAL') and app.request.getPathInfo starts with '/professional' %}
-        <h1>Liste des catégories parues sous {{ editor.editorName }}</h1>
+        <h1 class="main__title--text">Liste des catégories parues sous {{ editor.editorName }}</h1>
     {% else %}
-        <h1>Liste des catégories</h1>
+        <h1 class="main__title--text">Liste des catégories</h1>
     {% endif %}
 
     {% if app.request.getPathInfo starts with '/professional' %}

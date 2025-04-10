@@ -5,7 +5,7 @@
 {% block main %}
     <h1 class="main__title--text">{{ author.authorFirstname }} {{ author.authorName }}</h1>
 
-    <a class="main__link" href="{{ path('app_author_index_user') }}">Retourner à la liste des auteurs</a>
+    <a class="main__link main__link-margin-bottom" href="{{ path('app_author_index_user') }}">Retourner à la liste des auteurs</a>
 
     <section class="container--flex-row card-container">
         {% for book in books %}

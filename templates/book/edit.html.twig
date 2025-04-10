@@ -3,7 +3,7 @@
 {% block title %}Modifier un livre{% endblock %}
 
 {% block main %}
-    <h1>Modifier {{ book.bookTitle }}</h1>
+    <h1 class="main__title--text">Modifier {{ book.bookTitle }}</h1>
 
     {{ include('book/_form.html.twig', {'button_label': 'Update'}) }}
 
