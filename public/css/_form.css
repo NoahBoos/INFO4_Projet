@@ -1,0 +1,32 @@
+form button {
+    margin-top: 16px;
+}
+
+form > div,
+form > div > div > div,
+form > div > div > div > div > div {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+form > div > div > div#user_roles {
+    display: flex;
+    flex-direction: row;
+}
+
+form > div > div,
+form > div > div > div > div,
+form > div > div > div > div > div > div {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+form label {
+    font-size: large;
+}
+
+form > div > div > div > div > div > div > label {
+    font-size: medium;
+}
