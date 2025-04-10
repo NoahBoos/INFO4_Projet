@@ -1,9 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Book index{% endblock %}
+{% block title %}Tous les livres{% endblock %}
 
 {% block main %}
-    <h1>Book index</h1>
+    {% if is_granted('ROLE_PROFESSIONAL') and app.request.getPathInfo starts with '/professional' %}
+        <h1>Tous les livres parus sous {{ editor.editorName }}</h1>
+    {% else %}
+        <h1>Tous les livres</h1>
+    {% endif %}
 
     {% if app.request.getPathInfo starts with '/professional' %}
         <section class="table-wrapper">
