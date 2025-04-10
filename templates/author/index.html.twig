@@ -25,13 +25,13 @@
                     </tr>
                 {% else %}
                     <tr>
-                        <td colspan="4">no records found</td>
+                        <td colspan="4">Aucun auteur n'a pu être récupéré...</td>
                     </tr>
                 {% endfor %}
                 </tbody>
             </table>
 
-            <a href="{{ path('app_author_new') }}">Create new</a>
+            <a href="{{ path('app_author_new') }}">Ajouter un nouvel auteur à la base de données</a>
         </section>
     {% else %}
         <section class="container--flex-row card-container">

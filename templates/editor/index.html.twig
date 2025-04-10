@@ -24,13 +24,13 @@
                     </tr>
                 {% else %}
                     <tr>
-                        <td colspan="3">no records found</td>
+                        <td colspan="3">Aucun éditeur n'a pu être récupéré...</td>
                     </tr>
                 {% endfor %}
                 </tbody>
             </table>
 
-            <a href="{{ path('app_editor_new') }}">Créer un nouvel éditeur</a>
+            <a href="{{ path('app_editor_new') }}">Ajouter un nouvel éditeur à la base de données</a>
         </section>
     {% else %}
         <section class="container--flex-row card-container">

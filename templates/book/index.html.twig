@@ -50,14 +50,14 @@
                             </tr>
                         {% else %}
                             <tr>
-                                <td colspan="5">no records found</td>
+                                <td colspan="5">Aucun livre n'a pu être récupéré...</td>
                             </tr>
                         {% endfor %}
                     {% endif %}
                 </tbody>
             </table>
 
-            <a href="{{ path('app_book_new') }}">Create new</a>
+            <a href="{{ path('app_book_new') }}">Ajouter un nouveau livre à la base de données</a>
         </section>
     {% else %}
         <section class="container--flex-row card-container">
