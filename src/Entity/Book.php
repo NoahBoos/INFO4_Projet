@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\BookRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -37,6 +39,17 @@ class Book
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $book_cover = null;
+
+    /**
+     * @var Collection<int, MarkedByUser>
+     */
+    #[ORM\OneToMany(targetEntity: MarkedByUser::class, mappedBy: 'book')]
+    private Collection $markedByUsers;
+
+    public function __construct()
+    {
+        $this->markedByUsers = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -123,6 +136,36 @@ class Book
     public function setBookCover(?string $book_cover): static
     {
         $this->book_cover = $book_cover;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, MarkedByUser>
+     */
+    public function getMarkedByUsers(): Collection
+    {
+        return $this->markedByUsers;
+    }
+
+    public function addMarkedByUser(MarkedByUser $markedByUser): static
+    {
+        if (!$this->markedByUsers->contains($markedByUser)) {
+            $this->markedByUsers->add($markedByUser);
+            $markedByUser->setBook($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMarkedByUser(MarkedByUser $markedByUser): static
+    {
+        if ($this->markedByUsers->removeElement($markedByUser)) {
+            // set the owning side to null (unless already changed)
+            if ($markedByUser->getBook() === $this) {
+                $markedByUser->setBook(null);
+            }
+        }
 
         return $this;
     }

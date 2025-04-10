@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -33,6 +35,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\ManyToOne(inversedBy: 'users')]
     private ?Editor $editor = null;
+
+    /**
+     * @var Collection<int, MarkedByUser>
+     */
+    #[ORM\OneToMany(targetEntity: MarkedByUser::class, mappedBy: 'user')]
+    private Collection $markedByUsers;
+
+    public function __construct()
+    {
+        $this->markedByUsers = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -117,6 +130,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setEditor(?Editor $editor): static
     {
         $this->editor = $editor;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, MarkedByUser>
+     */
+    public function getMarkedByUsers(): Collection
+    {
+        return $this->markedByUsers;
+    }
+
+    public function addMarkedByUser(MarkedByUser $markedByUser): static
+    {
+        if (!$this->markedByUsers->contains($markedByUser)) {
+            $this->markedByUsers->add($markedByUser);
+            $markedByUser->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMarkedByUser(MarkedByUser $markedByUser): static
+    {
+        if ($this->markedByUsers->removeElement($markedByUser)) {
+            // set the owning side to null (unless already changed)
+            if ($markedByUser->getUser() === $this) {
+                $markedByUser->setUser(null);
+            }
+        }
 
         return $this;
     }
