@@ -1,3 +1,10 @@
+{% if is_granted('ROLE_USER') %}
+    <li>
+        <a href="{{ path('app_marked_by_user_index_user') }}">
+            <i class="bi bi-arrow-right"></i> Ma bibliothèque
+        </a>
+    </li>
+{% endif %}
 <h2>Auteurs</h2>
 <li>
     <a href="{{ path('app_author_index_user') }}">

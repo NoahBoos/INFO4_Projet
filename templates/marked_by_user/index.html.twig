@@ -1,33 +1,84 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}MarkedByUser index{% endblock %}
+{% block title %}
+    {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_PROFESSIONAL') %}
+        Liste des marquages
+    {% else %}
+        Votre bibliothèque
+    {% endif %}
+{% endblock %}
 
-{% block body %}
-    <h1>MarkedByUser index</h1>
+{% block main %}
+    {% if is_granted('ROLE_ADMIN') and app.request.getPathInfo starts with '/admin' %}
+        <h1>Tous les marquages de livres</h1>
+    {% elseif is_granted('ROLE_PROFESSIONAL') and app.request.getPathInfo starts with '/professional' %}
+        <h1>Tous les marquages des livres parus sous {{ editor.editorName }}</h1>
+    {% else %}
+        <h1>Votre collection de livres</h1>
+    {% endif %}
 
-    <table class="table">
-        <thead>
+    {% if app.request.getPathInfo starts with '/admin' %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Identifiant de l'utilisateur</th>
+                    <th>Livre</th>
+                    <th>État</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for marked_by_user in marked_by_users %}
+                    <tr>
+                        <td>{{ marked_by_user.user.id }}</td>
+                        <td>{{ marked_by_user.book.bookTitle }}</td>
+                        <td>{{ marked_by_user.readingStatus.name }}</td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="2">Aucun marquage n'a pu être récupéré.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% elseif app.request.getPathInfo starts with '/professional' %}
+        <table class="table">
+            <thead>
             <tr>
-                <th>Id</th>
-                <th>actions</th>
+                <th>Identifiant de l'utilisateur</th>
+                <th>Livre</th>
+                <th>État</th>
             </tr>
-        </thead>
-        <tbody>
-        {% for marked_by_user in marked_by_users %}
-            <tr>
-                <td>{{ marked_by_user.id }}</td>
-                <td>
-                    <a href="{{ path('app_marked_by_user_show', {'id': marked_by_user.id}) }}">show</a>
-                    <a href="{{ path('app_marked_by_user_edit', {'id': marked_by_user.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="2">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_marked_by_user_new') }}">Create new</a>
+            </thead>
+            <tbody>
+                {% for marked_by_user in marked_by_usersByEditor %}
+                    <tr>
+                        <td>{{ marked_by_user.user.id }}</td>
+                        <td>{{ marked_by_user.book.bookTitle }}</td>
+                        <td>{{ marked_by_user.readingStatus.name }}</td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="2">Aucun marquage n'a pu être récupéré.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <section class="container--flex-row card-container">
+            {% for marked_by_user in marked_by_users %}
+                {% include('/components/_cardMarkedBook.html.twig') with {
+                    'img': marked_by_user.book.bookCover,
+                    'title': marked_by_user.book.bookTitle,
+                    'author': marked_by_user.book.bookAuthor.authorName,
+                    'editor': marked_by_user.book.bookEditor.editorName,
+                    'bookId': marked_by_user.book.id,
+                    'authorId': marked_by_user.book.bookAuthor.id,
+                    'editorId': marked_by_user.book.bookEditor.id,
+                    'bookState': marked_by_user.readingStatus.name
+                } %}
+            {% else %}
+                <h1>Aucun marquage n'a pu être récupéré.</h1>
+            {% endfor %}
+        </section>
+    {% endif %}
 {% endblock %}

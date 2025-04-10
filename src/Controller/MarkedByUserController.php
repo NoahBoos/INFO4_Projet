@@ -14,14 +14,29 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/marked/by/user')]
 final class MarkedByUserController extends AbstractController
 {
-    #[Route(name: 'app_marked_by_user_index', methods: ['GET'])]
-    public function index(MarkedByUserRepository $markedByUserRepository): Response
+    #[Route('/markedbyuser/', name: 'app_marked_by_user_index_user', methods: ['GET'])]
+    public function indexForUser(MarkedByUserRepository $markedByUserRepository): Response
     {
         return $this->render('marked_by_user/index.html.twig', [
-            'marked_by_users' => $markedByUserRepository->findAll(),
+            'marked_by_users' => $markedByUserRepository->findAll()
+        ]);
+    }
+
+    #[Route('/admin/markedbyuser/', name: 'app_marked_by_user_index_admin', methods: ['GET'])]
+    public function indexForAdmin(MarkedByUserRepository $markedByUserRepository): Response {
+        return $this->render('marked_by_user/index.html.twig', [
+            'editor' => $this->getUser()->getEditor(),
+            'marked_by_users' => $markedByUserRepository->findAll()
+        ]);
+    }
+
+    #[Route('/professional/markedbyuser/', name: 'app_marked_by_user_index_professional', methods: ['GET'])]
+    public function indexForProfessional(MarkedByUserRepository $markedByUserRepository): Response {
+        return $this->render('marked_by_user/index.html.twig', [
+            'editor' => $this->getUser()->getEditor(),
+            'marked_by_usersByEditor' => $markedByUserRepository->findByEditorId($this->getUser()->getEditor()->getId()),
         ]);
     }
 
@@ -45,7 +60,7 @@ final class MarkedByUserController extends AbstractController
 //        ]);
 //    }
 
-    #[Route('/new/{idBook}/{idStatus}', name: 'app_marked_by_user_new', methods: ['GET', 'POST'])]
+    #[Route('/markedbyuser/new/{idBook}/{idStatus}', name: 'app_marked_by_user_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager, BookRepository $bookRepository, int $idBook, ReadingStatusRepository $readingStatusRepository, int $idStatus): Response {
         $user = $this->getUser();
         $markedByUser = new MarkedByUser();
@@ -69,7 +84,7 @@ final class MarkedByUserController extends AbstractController
         return $this->redirectToRoute('app_book_show', ['id' => $bookRepository->find($idBook)->getId()]);
     }
 
-    #[Route('/{id}', name: 'app_marked_by_user_show', methods: ['GET'])]
+    #[Route('/markedbyuser/{id}', name: 'app_marked_by_user_show', methods: ['GET'])]
     public function show(MarkedByUser $markedByUser): Response
     {
         return $this->render('marked_by_user/show.html.twig', [
@@ -77,7 +92,7 @@ final class MarkedByUserController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_marked_by_user_edit', methods: ['GET', 'POST'])]
+    #[Route('/markedbyuser/{id}/edit', name: 'app_marked_by_user_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, MarkedByUser $markedByUser, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(MarkedByUserType::class, $markedByUser);
@@ -95,7 +110,7 @@ final class MarkedByUserController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_marked_by_user_delete', methods: ['POST'])]
+    #[Route('/markedbyuser/{id}', name: 'app_marked_by_user_delete', methods: ['POST'])]
     public function delete(Request $request, MarkedByUser $markedByUser, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$markedByUser->getId(), $request->getPayload()->getString('_token'))) {

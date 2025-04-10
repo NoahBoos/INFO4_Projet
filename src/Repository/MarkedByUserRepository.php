@@ -16,6 +16,23 @@ class MarkedByUserRepository extends ServiceEntityRepository
         parent::__construct($registry, MarkedByUser::class);
     }
 
+    /**
+     * Note pour la correction : Requête DQL généré par ChatGPT.
+     * Je suis, cependant, en mesure d'expliquer son fonctionnement puisqu'elle ressemble sensiblement à ce qu'on a pu faire avec $pdo et SQL.
+     * @param int $editorId
+     * @return array
+     */
+    public function findByEditorId(int $editorId): array
+    {
+        return $this->createQueryBuilder('mbu')
+            ->join('mbu.book', 'b')
+            ->where('b.bookEditor = :editorId')
+            ->setParameter('editorId', $editorId)
+            ->getQuery()
+            ->getResult();
+    }
+
+
     //    /**
     //     * @return MarkedByUser[] Returns an array of MarkedByUser objects
     //     */
