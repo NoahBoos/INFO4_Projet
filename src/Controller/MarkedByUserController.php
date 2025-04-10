@@ -3,8 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\MarkedByUser;
+use App\Entity\ReadingStatus;
 use App\Form\MarkedByUserType;
+use App\Repository\BookRepository;
 use App\Repository\MarkedByUserRepository;
+use App\Repository\ReadingStatusRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,24 +25,48 @@ final class MarkedByUserController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_marked_by_user_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
-    {
+//    #[Route('/new', name: 'app_marked_by_user_new', methods: ['GET', 'POST'])]
+//    public function new(Request $request, EntityManagerInterface $entityManager): Response
+//    {
+//        $markedByUser = new MarkedByUser();
+//        $form = $this->createForm(MarkedByUserType::class, $markedByUser);
+//        $form->handleRequest($request);
+//
+//        if ($form->isSubmitted() && $form->isValid()) {
+//            $entityManager->persist($markedByUser);
+//            $entityManager->flush();
+//
+//            return $this->redirectToRoute('app_marked_by_user_index', [], Response::HTTP_SEE_OTHER);
+//        }
+//
+//        return $this->render('marked_by_user/new.html.twig', [
+//            'marked_by_user' => $markedByUser,
+//            'form' => $form,
+//        ]);
+//    }
+
+    #[Route('/new/{idBook}/{idStatus}', name: 'app_marked_by_user_new', methods: ['GET', 'POST'])]
+    public function new(Request $request, EntityManagerInterface $entityManager, BookRepository $bookRepository, int $idBook, ReadingStatusRepository $readingStatusRepository, int $idStatus): Response {
+        $user = $this->getUser();
         $markedByUser = new MarkedByUser();
-        $form = $this->createForm(MarkedByUserType::class, $markedByUser);
-        $form->handleRequest($request);
+        $markedByUser->setUser($user);
+        $markedByUser->setBook($bookRepository->find($idBook));
+        $markedByUser->setReadingStatus($readingStatusRepository->find($idStatus));
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($markedByUser);
+        $existing = $entityManager->getRepository(MarkedByUser::class)->findOneBy([
+            'user' => $user,
+            'book' => $bookRepository->find($idBook)
+        ]);
+
+        if ($existing) {
+            $entityManager->remove($existing);
             $entityManager->flush();
-
-            return $this->redirectToRoute('app_marked_by_user_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('marked_by_user/new.html.twig', [
-            'marked_by_user' => $markedByUser,
-            'form' => $form,
-        ]);
+        $entityManager->persist($markedByUser);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_book_show', ['id' => $bookRepository->find($idBook)->getId()]);
     }
 
     #[Route('/{id}', name: 'app_marked_by_user_show', methods: ['GET'])]
