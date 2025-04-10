@@ -12,7 +12,7 @@
             {% else %}
                 {% include('/components/nav/_virtualFolder_user.html.twig') %}
             {% endif %}
-        {% elseif is_granted('ROLE_USER') %}
+        {% else %}
             {% include('/components/nav/_virtualFolder_user.html.twig') %}
         {% endif %}
     </ul>
