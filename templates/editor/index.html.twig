@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Editor index{% endblock %}
+{% block title %}Tous les éditeurs{% endblock %}
 
 {% block main %}
-    <h1>Editor index</h1>
+    <h1>Tous les éditeurs</h1>
     {% if app.request.getPathInfo starts with '/professional' %}
         <section>
             <table class="table">
@@ -18,7 +18,7 @@
                     <tr>
                         <td>{{ editor.editorName }}</td>
                         <td>
-                            <a href="{{ path('app_editor_show', {'id': editor.id}) }}"><i class="bi bi-pencil-square"></i></a>
+                            <a href="{{ path('app_editor_edit', {'id': editor.id}) }}"><i class="bi bi-pencil-square"></i></a>
                             <a href="{{ path('app_editor_delete', {'id': editor.id}) }}"><i class="bi bi-trash"></i></a>
                         </td>
                     </tr>
@@ -30,7 +30,7 @@
                 </tbody>
             </table>
 
-            <a href="{{ path('app_editor_new') }}">Create new</a>
+            <a href="{{ path('app_editor_new') }}">Créer un nouvel éditeur</a>
         </section>
     {% else %}
         <section class="container--flex-row card-container">
