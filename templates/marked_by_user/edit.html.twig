@@ -7,7 +7,7 @@
 
     {{ include('marked_by_user/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('app_marked_by_user_index') }}">back to list</a>
+    <a class="main__link" href="{{ path('app_marked_by_user_index') }}">back to list</a>
 
     {{ include('marked_by_user/_delete_form.html.twig') }}
 {% endblock %}

@@ -5,7 +5,7 @@
 {% block main %}
     <h1 class="main__title--text">{{ editor.editorName }}</h1>
 
-    <a href="{{ path('app_editor_index_user') }}">Retourner à la liste des éditeurs</a>
+    <a class="main__link" href="{{ path('app_editor_index_user') }}">Retourner à la liste des éditeurs</a>
 
     <h2>Collections de {{ editor.editorName }}</h2>
     <section class="container--flex-row card-container">

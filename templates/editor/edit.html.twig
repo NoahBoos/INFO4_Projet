@@ -7,7 +7,7 @@
 
     {{ include('editor/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('app_editor_index') }}">Retourner à la liste des éditeurs</a>
+    <a class="main__link" href="{{ path('app_editor_index') }}">Retourner à la liste des éditeurs</a>
 
     {{ include('editor/_delete_form.html.twig') }}
 {% endblock %}
