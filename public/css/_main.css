@@ -26,3 +26,7 @@ main {
     width: 30%;
     margin-right: 96px;
 }
+
+.main__paragraph--small-width {
+    width: 25%;
+}

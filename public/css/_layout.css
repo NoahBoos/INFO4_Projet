@@ -18,3 +18,12 @@ body {
 .content--size {
     /*min-height: 85vh;*/
 }
+
+.container--center-all {
+    justify-content: center;
+    align-items: center;
+}
+
+.container--gap-5pc {
+    gap: 5%;
+}
