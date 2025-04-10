@@ -6,6 +6,7 @@ use App\Entity\Category;
 use App\Form\CategoryType;
 use App\Repository\BookRepository;
 use App\Repository\CategoryRepository;
+use App\Repository\EditorRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,12 +24,13 @@ final class CategoryController extends AbstractController
     }
 
     #[Route('/professional/category', name: 'app_category_index', methods: ['GET'])]
-    public function index(CategoryRepository $categoryRepository): Response
+    public function index(CategoryRepository $categoryRepository, EditorRepository $editorRepository): Response
     {
         $user = $this->getUser();
         return $this->render('category/index.html.twig', [
             'categories' => $categoryRepository->findAll(),
             'categoriesByCurrentEditor' => $categoryRepository->findBy(['editor' => $user->getEditor()]),
+            'editor' => $editorRepository->find($user->getEditor()),
         ]);
     }
 

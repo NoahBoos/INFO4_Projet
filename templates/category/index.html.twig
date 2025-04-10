@@ -1,9 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Category index{% endblock %}
+{% block title %}Liste des catégories{% endblock %}
 
 {% block main %}
-    <h1>Category index</h1>
+    {% if is_granted('ROLE_PROFESSIONAL') and app.request.getPathInfo starts with '/professional' %}
+        <h1>Liste des catégories parues sous {{ editor.editorName }}</h1>
+    {% else %}
+        <h1>Liste des catégories</h1>
+    {% endif %}
 
     {% if app.request.getPathInfo starts with '/professional' %}
         <section>
@@ -20,7 +24,7 @@
                             <tr>
                                 <td>{{ category.categoryName }}</td>
                                 <td>
-                                    <a href="{{ path('app_category_show', {'id': category.id}) }}"><i class="bi bi-pencil-square"></i></a>
+                                    <a href="{{ path('app_category_edit', {'id': category.id}) }}"><i class="bi bi-pencil-square"></i></a>
                                     <a href="{{ path('app_category_delete', {'id': category.id}) }}"><i class="bi bi-trash"></i></a>
                                 </td>
                             </tr>
@@ -34,7 +38,7 @@
                             <tr>
                                 <td>{{ category.categoryName }}</td>
                                 <td>
-                                    <a href="{{ path('app_category_show', {'id': category.id}) }}"><i class="bi bi-pencil-square"></i></a>
+                                    <a href="{{ path('app_category_edit', {'id': category.id}) }}"><i class="bi bi-pencil-square"></i></a>
                                     <a href="{{ path('app_category_delete', {'id': category.id}) }}"><i class="bi bi-trash"></i></a>
                                 </td>
                             </tr>

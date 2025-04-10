@@ -1,15 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Category{% endblock %}
+{% block title %}{{ category.categoryName }}{% endblock %}
 
 {% block main %}
     <h1 class="main__title--text">{{ category.categoryName }}</h1>
 
     <a class="main__link" href="{{ path('app_category_index_user') }}">Retourner à la liste des catégories</a>
-
-{#    <a href="{{ path('app_category_edit', {'id': category.id}) }}">edit</a>#}
-
-{#    {{ include('category/_delete_form.html.twig') }}#}
 
     <section class="container--flex-row card-container">
         {% for book in books %}
