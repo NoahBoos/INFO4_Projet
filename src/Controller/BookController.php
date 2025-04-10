@@ -41,6 +41,20 @@ final class BookController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $img = $form->get('book_cover')->getData();
+
+            if ($img) {
+                $book->setBookCover('tmp');
+                $entityManager->persist($book);
+                $entityManager->flush();
+
+                $filename = 'image-' . $book->getId() . '.' . $img->guessExtension();
+
+                $book->setBookCover($filename);
+
+                $img->move('images/bookCover', $filename);
+            }
+
             $entityManager->persist($book);
             $entityManager->flush();
 
@@ -83,6 +97,12 @@ final class BookController extends AbstractController
     public function delete(Request $request, Book $book, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$book->getId(), $request->getPayload()->getString('_token'))) {
+            $img = 'images/bookCover/' . $book->getBookCover();
+            if (file_exists($img)) {
+                if (is_file($img)) {
+                    unlink($img);
+                }
+            }
             $entityManager->remove($book);
             $entityManager->flush();
         }

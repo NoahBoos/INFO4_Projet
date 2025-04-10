@@ -13,6 +13,6 @@
             <a href="{{ path('app_marked_by_user_new', {idBook: book.id, idStatus: 2}) }}">Marquer comme en cours de lecture</a>
             <a href="{{ path('app_marked_by_user_new', {idBook: book.id, idStatus: 3}) }}">Marquer comme lu</a>
         </div>
-        <img class="main__book--cover" src="{{ asset(book.bookCover) }}">
+        <img class="main__book--cover" src="{{ asset('images/bookCover/' ~ book.bookCover) }}">
     </div>
 {% endblock %}
