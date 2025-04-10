@@ -12,6 +12,10 @@ main {
     font-size: 18px;
 }
 
+.main__link-no-decoration {
+    text-decoration: none;
+}
+
 .main__book--container {
     justify-content: space-between;
     padding: 0 64px 0 0;
